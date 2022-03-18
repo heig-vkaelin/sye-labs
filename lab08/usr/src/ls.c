@@ -50,33 +50,6 @@ static const char* humanSize(unsigned long bytes) {
 	return output;
 }
 
-int getSymbolinkData(char** name) {
-	// TODO: fonction marche pas
-	int fd = open(*name, O_PATH | O_NOFOLLOW);
-
-	if (fd < 0) {
-		printf("Error! In Symbolink open\n");
-		return -1;
-	}
-
-	char targetFileName[256];
-	if (read(fd, targetFileName, 256) < 0) {
-		printf("Error! In Symbolink read\n");
-		if (close(fd) < 0)
-			printf("Error! In Close\n");
-		return -1;
-	}
-
-	strcat(*name, " -> ");
-	strcat(*name, targetFileName);
-	if (close(fd) < 0) {
-		printf("Error! In Close\n");
-		return -1;
-	}
-
-	return 0;
-}
-
 /*
  * Main function of ls application.
  * The ls application is very very short and does not support any options like -l -a etc.
